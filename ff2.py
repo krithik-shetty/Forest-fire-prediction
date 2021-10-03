@@ -38,6 +38,7 @@ numpy.random.seed(seed)
 
 dataframe.month.replace(('jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'),(1,2,3,4,5,6,7,8,9,10,11,12), inplace=True)
 dataframe.day.replace(('mon','tue','wed','thu','fri','sat','sun'),(1,2,3,4,5,6,7), inplace=True)
+#we replace all the months and dates with numbers to predict properly 
 
 print(dataframe.head())
 
@@ -66,9 +67,10 @@ ax.set_yticks(ticks)
 ax.set_xticklabels(dataframe.columns)
 ax.set_yticklabels(dataframe.columns)
 
+#correlation table will be made here
 
 num_instances = len(X)
-
+#different model is tested for our dataset 
 models = []
 models.append(('LiR', LinearRegression()))
 models.append(('Bag_Re', BaggingRegressor()))
@@ -115,6 +117,7 @@ for name, model in models:
 model = ExtraTreesRegressor()
 print(model)
 rfe = RFE(model, 5)
+#dmc dc temp wind and rain
 print(rfe)
 #fitting model on train data
 fit = rfe.fit(X,Y)
@@ -137,6 +140,7 @@ model.fit(x_train,y_train)
 score = model.score(x_train, y_train)
 print("Score: ", score)
 
+#24.46 Rmse and 97% accuracy and 24.56 rmse 83%
 cv_scores = cross_val_score(model, x_train,y_train,cv=10)
 print("Mean cross-validataion score: %.2f" % cv_scores.mean())
 #predict the test data by using the trained model. After the prediction, we'll check the accuracy level by using the MSE and RMSE metrics.
